@@ -1,0 +1,57 @@
+﻿
+@{
+    ViewBag.Title = "Index";
+    Layout = "~/Views/Shared/AdminLayout.cshtml";
+}
+@using OnlineTicariOtomasyon_ASPNET_MVC.Models.Siniflar
+@model List<KargoDetay>
+<script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+<script src="~/Scripts/jquery-3.4.1.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+<script src="~/Scripts/SweetAlertSil.js"></script>
+
+<div class="container-fluid tbl_kargo">
+    <br />
+    <h2>Kargo Sayfası (Toplam Kargo : @ViewBag.ToplamKargo)</h2>
+    <hr />
+    @using (Html.BeginForm("Index", "Kargo", FormMethod.Get)) 
+    {
+     <p>
+         Kargo Takip Numarası : @Html.TextBox("p", "", new { @style = "font-size:15px" })
+         <input type="submit" value="Ara"/>
+     </p>
+    }
+    <br />
+    <table class="table table-bordered">
+        <thead>
+            <tr>
+                <th>Kargo Takip Kodu</th>
+                <th>Personel</th>
+                <th>Alıcı</th>
+                <th>Tarih</th>
+                <th>Sil</th>
+                <th>Detaylar</th>
+                <th>Güncelle</th>
+                <th>QR Oluştur</th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var item in Model)
+            {
+                <tr>
+                    <td>@item.TakipKodu</td>
+                    <td>@item.Personel</td>
+                    <td>@item.Alici</td>
+                    <td>@item.Tarih.ToString("d")</td>
+                    <td><a href="/Kargo/KargoSil/@item.KargoDetayID" id="Button3" runat="server" class="btn btn-danger btn-block" onclick="return conFunction(this);">Sil</a></td>
+                    <td><a href="/Kargo/KargoTakip/@item.TakipKodu" class="btn btn-success btn-block">Detaylar</a></td>
+                    <td><a href="/Kargo/KargoGetir/@item.KargoDetayID" class="btn btn-dark btn-block">Güncelle</a></td>
+                    <td><a href="/QR/Index/@item.TakipKodu" class="btn btn-primary btn-block">QR Oluştur</a></td>
+                </tr>
+            }
+        </tbody>
+    </table>
+    <a class="btn btn-primary" href="/Kargo/KargoEkle">Yeni Kargo Girişi</a>
+</div>
+

@@ -1,0 +1,62 @@
+﻿@using OnlineTicariOtomasyon_ASPNET_MVC.Models.Siniflar
+@model Urunler
+@{
+    ViewBag.Title = "UrunGetir";
+    Layout = "~/Views/Shared/AdminLayout.cshtml";
+}
+
+<link href="~/Content/style.css" rel="stylesheet" />
+<script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+<script src="~/Scripts/jquery-3.4.1.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+<script src="~/Scripts/SweetAlertGuncelle.js"></script>
+<br />
+<h2>Ürün Güncelleme</h2>
+<hr />
+@using (Html.BeginForm("UrunGuncelle", "Urunler", FormMethod.Post))
+{
+    <div class="form-group">
+        <label class="labelAciklama">Ürün ID </label>
+        @Html.TextBoxFor(x => x.UrunID, new { @class = "form-control", @readonly = "readonly" })
+    </div>
+    <div class="form-group">
+        <label class="labelAciklama">Ürün Adı </label>
+        @Html.TextBoxFor(x => x.UrunAd, new { @class = "form-control" })
+    </div>
+    <div class="form-group">
+        <label class="labelAciklama">Marka</label>
+        @Html.TextBoxFor(x => x.Marka, new { @class = "form-control" })
+    </div>
+    <div class="form-group">
+        <label class="labelAciklama">Stok</label>
+        @Html.TextBoxFor(x => x.Stok, new { @class = "form-control" })
+    </div>
+    <div class="form-group">
+        <label class="labelAciklama">Alış Fiyat</label>
+        @Html.TextBoxFor(x => x.AlisFiyati, new { @class = "form-control" })
+    </div>
+    <div class="form-group">
+        <label class="labelAciklama">Satış Fiyat</label>
+        @Html.TextBoxFor(x => x.SatisFiyati, new { @class = "form-control" })
+    </div>
+    <div class="form-group">
+        <label class="labelAciklama">Kategori</label>
+        @*@Html.TextBoxFor(x => x.KategoriID, new { @class = "form-control" })*@
+        @Html.DropDownListFor(x => x.KategoriID, (List<SelectListItem>)ViewBag.dgr1, new { @class = "form-control" })
+    </div>
+    <div class="form-group">
+        <label class="labelAciklama">Ürün Görsel </label>
+        @Html.TextBoxFor(x => x.UrunGorsel, new { @class = "form-control" })
+    </div>
+    <div class="form-group">
+        <label class="labelAciklama">Durum</label>
+        @Html.TextBoxFor(x => x.Durum, new { @class = "form-control" })
+    </div>
+    <br />
+    <button runat="server" class="btn btn-primary btn-block" onclick="return conFunction(this);">Güncelle</button>
+}
+
+
+
+

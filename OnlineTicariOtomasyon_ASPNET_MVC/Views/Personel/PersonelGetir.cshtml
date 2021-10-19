@@ -1,0 +1,45 @@
+﻿@using OnlineTicariOtomasyon_ASPNET_MVC.Models.Siniflar
+@{
+    ViewBag.Title = "PersonelGetir";
+    Layout = "~/Views/Shared/AdminLayout.cshtml";
+}
+@model Personel
+<link href="~/Content/style.css" rel="stylesheet" />
+<script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+<script src="~/Scripts/jquery-3.4.1.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+<script src="~/Scripts/SweetAlertGuncelle.js"></script>
+<br />
+<h2>Personel Güncelleme</h2>
+<hr />
+@using (@Html.BeginForm("PersonelGuncelle", "Personel", FormMethod.Post, new { enctype = "multipart/form-data" }))
+{
+    <ol class="breadcrumb mb-4">
+        <li class="breadcrumb-item active">Personel Adı : @ViewBag.dgr</li>
+    </ol>
+    <div class="form-group">
+        <label class="labelAciklama">Personel ID</label>
+        @Html.TextBoxFor(x => x.PersonelID, new { @class = "form-control", @readonly = "readonly" })
+    </div>
+    <div class="form-group">
+        <label class="labelAciklama">Personel Ad</label>
+        @Html.TextBoxFor(x => x.PersonelAd, new { @class = "form-control" })
+    </div>
+    <div class="form-group">
+        <label class="labelAciklama">Personel Soyad</label>
+        @Html.TextBoxFor(x => x.PersonelSoyad, new { @class = "form-control" })
+    </div>
+    <div class="form-group">
+        <label class="labelAciklama">Personel Görsel</label>
+        <input type="file" name="PersonelGorsel" class="form-control-file" />
+    </div>
+    <div class="form-group">
+        <label class="labelAciklama">Departman</label>
+        @Html.DropDownListFor(x => x.DepartmanID, (List<SelectListItem>)ViewBag.dgr1, new { @class = "form-control" })
+    </div>
+    <br />
+    <button runat="server" class="btn btn-primary btn-block" onclick="return conFunction(this);">
+        Güncelle
+    </button>
+}

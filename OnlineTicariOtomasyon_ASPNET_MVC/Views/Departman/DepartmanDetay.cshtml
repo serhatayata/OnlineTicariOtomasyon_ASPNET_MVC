@@ -1,0 +1,35 @@
+﻿
+@{
+    ViewBag.Title = "DepartmanDetay";
+    Layout = "~/Views/Shared/AdminLayout.cshtml";
+}
+@using OnlineTicariOtomasyon_ASPNET_MVC.Models.Siniflar
+@model List<Personel>
+<br />
+<div class="container-fluid">
+    <h2>Departman Detay Sayfası</h2>
+    <hr />
+    <ol class="breadcrumb mb-4">
+        <li class="breadcrumb-item active">Departman Adı : @ViewBag.detayDpt</li>
+    </ol>
+    <table class="table table-hover" id="
+           ">
+        <thead>
+            <tr>
+                <th>Ad</th>
+                <th>Soyad</th>
+                <th>Satışlar</th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var item in Model)
+            {
+                <tr>
+                    <td>@item.PersonelAd</td>
+                    <td>@item.PersonelSoyad</td>
+                    <td><a href="/Departman/DepartmanPersonelSatis/@item.PersonelID" class="btn btn-dark">Satışlar</a></td>
+                </tr>
+            }
+        </tbody>
+    </table>
+</div>

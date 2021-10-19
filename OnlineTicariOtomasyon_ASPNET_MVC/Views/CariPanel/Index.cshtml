@@ -1,0 +1,59 @@
+﻿@using OnlineTicariOtomasyon_ASPNET_MVC.Models.Siniflar
+@model Cariler
+@{
+    ViewBag.Title = "Index";
+    Layout = "~/Views/Shared/_CariLayout.cshtml";
+}
+<br />
+<h2>Bilgiler</h2>
+<br />
+@using (Html.BeginForm("Index2","CariPanel",FormMethod.Post))
+{
+<table class="table table-hover">
+    <tr>
+        <td>
+        <label class="label"><u>E-mail Adresi</u> :</label>
+        <label class="form-control">@HttpContext.Current.User.Identity.Name</label>
+        @Html.HiddenFor(x => x.CariMail)
+        </td>
+    </tr>
+    <tr>
+        <td>
+            <label class="label"><u>Ad</u> :</label>
+            @Html.TextBoxFor(x => x.CariAd, new { @class = "form-control" })
+        </td>
+    </tr>
+    <tr>
+        <td>
+            <label class="label"><u>Soyad</u> :</label>
+            @Html.TextBoxFor(x => x.CariSoyad, new { @class = "form-control" })
+        </td>
+    </tr>
+    <tr>
+        <td>
+            <label class="label"><u>Şehir</u> :</label>
+            @Html.TextBoxFor(x => x.CariSehir, new { @class = "form-control" })
+        </td>
+    </tr>
+    <tr>
+        <td>
+            <label class="label"><u>Şifre</u></label>
+            @Html.TextBoxFor(x => x.CariSifre, new { @class = "form-control" })
+        </td>
+    </tr>
+</table>
+   <div class="form-group">
+       <button type="submit" class="btn btn-primary ml-2">
+           Bilgilerimi Güncelle
+       </button>
+   </div>
+}
+
+
+
+
+
+
+
+
+

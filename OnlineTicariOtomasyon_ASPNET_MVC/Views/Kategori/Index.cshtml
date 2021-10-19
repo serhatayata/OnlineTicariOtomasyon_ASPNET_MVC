@@ -1,0 +1,43 @@
+﻿@using OnlineTicariOtomasyon_ASPNET_MVC.Models.Siniflar
+@{
+    ViewBag.Title = "Index";
+    Layout = "~/Views/Shared/AdminLayout.cshtml";
+}
+@model List<Kategori>
+<script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+<script src="~/Scripts/jquery-3.4.1.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+<script src="~/Scripts/SweetAlertSil.js"></script>
+
+<style>
+    .tbl_kategori {
+        margin-top: 40px;
+    }
+</style>
+<div class="container-fluid tbl_kategori">
+    <h2>Kategoriler (Toplam Kategori : @ViewBag.ToplamKategori)</h2>
+    <hr />
+    <table class="table table-bordered" id="tbl1">
+        <thead>
+            <tr>
+                <th>ID</th>
+                <th>Kategori Adı</th>
+                <th>Sil</th>
+                <th>Güncelle</th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var item in Model)
+            {
+                <tr>
+                    <td>@item.KategoriID</td>
+                    <td>@item.KategoriAd</td>
+                    <td><a href="/Kategori/KategoriSil/@item.KategoriID" id="Button3" runat="server" class="btn btn-danger btn-block" onclick="return conFunction(this);">Sil</a></td>
+                    <td><a href="/Kategori/KategoriGetir/@item.KategoriID" class="btn btn-success btn-block">Güncelle</a></td>
+                </tr>
+            }
+        </tbody>
+    </table>
+    <a class="btn btn-primary" href="/Kategori/KategoriEkle">Yeni Kategori</a>
+</div>

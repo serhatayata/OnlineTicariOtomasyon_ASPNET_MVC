@@ -1,0 +1,51 @@
+﻿@using OnlineTicariOtomasyon_ASPNET_MVC.Models.Siniflar
+@{
+    ViewBag.Title = "Index";
+    Layout = "~/Views/Shared/AdminLayout.cshtml";
+}
+<script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+<script src="~/Scripts/jquery-3.4.1.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+<script src="~/Scripts/SweetAlertSil.js"></script>
+@model List<Cariler>
+<style>
+    .tbl_cariler {
+        margin-top: 40px;
+    }
+</style>
+<div class="container-fluid tbl_cariler">
+    <h2>Cariler (Toplam Cari : @ViewBag.ToplamCari)</h2>
+    <br />
+    <table class="table table-striped display" id="tbl1">
+        <thead>
+            <tr>
+                <th>ID</th>
+                <th>Cari Adı</th>
+                <th>Cari Soyadı</th>
+                <th>Cari Şehir</th>
+                <th>Cari Mail</th>
+                <th>Sil</th>
+                <th>Güncelle</th>
+                <th>Detay</th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var item in Model)
+            {
+                <tr>
+                    <td>@item.CariID</td>
+                    <td>@item.CariAd</td>
+                    <td>@item.CariSoyad</td>
+                    <td>@item.CariSehir</td>
+                    <td>@item.CariMail</td>
+                    <td><a type="button" href="/Cariler/CariSil/@item.CariID" id="Button3" runat="server" class="btn btn-danger btn-block" onclick="return conFunction(this);">Sil</a></td>
+                    <td><a href="/Cariler/CariGetir/@item.CariID" class="btn btn-success btn-block">Güncelle</a></td>
+                    <td><a href="/Cariler/CariSatis/@item.CariID" class="btn btn-dark btn-block">Satış Geçmişi</a></td>
+                </tr>
+            }
+        </tbody>
+    </table>
+    <a class="btn btn-primary" href="/Cariler/CariEkle">Yeni Cari</a>
+</div>
+

@@ -1,0 +1,79 @@
+﻿@using OnlineTicariOtomasyon_ASPNET_MVC.Models.Siniflar.KolayTablolar
+@model IEnumerable<MarkaUrunMiktari>
+
+<div class="card">
+    <div class="card-header">
+        <h3 class="card-title">Marka Ürün Sayıları</h3>
+    </div>
+    <!-- /.card-header -->
+    <div class="card-body p-0">
+        <table class="table table-bordered">
+            <thead>
+                <tr>
+                    <th style="width: 10px">#</th>
+                    <th>Marka</th>
+                    <th>Durum Çubuğu</th>
+                    <th style="width: 40px">Toplam</th>
+                </tr>
+            </thead>
+            <tbody>
+                @{
+                    int siraNo = 0;
+                }
+                @foreach (var item in Model)
+                {
+                <tr>
+                    <td>@{siraNo++;}@siraNo</td>
+                    <td>@item.Marka</td>
+                    <td>
+                        @if (item.UrunAdet > 0 && item.UrunAdet <= 2)
+                        {
+                            <div class="progress progress-xs">
+                                <div class="progress-bar bg-danger" style="width: 20px"></div>
+                            </div>
+                        }
+                        else if (item.UrunAdet >2 && item.UrunAdet <= 10)
+                        {
+                            <div class="progress progress-xs">
+                                <div class="progress-bar progress-bar-warning" style="width: 40px"></div>
+                            </div>
+                        }
+                        else if (item.UrunAdet > 10 && item.UrunAdet <= 15)
+                        {
+                            <div class="progress progress-xs">
+                                <div class="progress-bar bg-primary" style="width: 70px"></div>
+                            </div>
+                        }
+                        else if (item.UrunAdet > 15)
+                        {
+                            <div class="progress progress-xs">
+                                <div class="progress-bar bg-success" style="width: 90px%"></div>
+                            </div>
+                        }
+                    </td>
+                    <td>
+                        @if (item.UrunAdet > 0 && item.UrunAdet <= 2)
+                        {
+                            <span class="badge bg-danger">@item.UrunAdet </span>
+                        }
+                        else if (item.UrunAdet > 2 && item.UrunAdet <= 10)
+                        {
+                            <span class="badge bg-warning">@item.UrunAdet </span>
+                        }
+                        else if (item.UrunAdet > 10 && item.UrunAdet <= 15)
+                        {
+                            <span class="badge bg-primary">@item.UrunAdet </span>
+                        }
+                        else if (item.UrunAdet > 15)
+                        {
+                            <span class="badge bg-success">@item.UrunAdet </span>
+                        }
+                    </td>
+                </tr>
+                }
+
+            </tbody>
+        </table>
+    </div>
+    <!-- /.card-body -->
+</div>

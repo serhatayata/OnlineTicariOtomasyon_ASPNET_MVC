@@ -1,0 +1,58 @@
+﻿@using OnlineTicariOtomasyon_ASPNET_MVC.Models.Siniflar
+@{
+    ViewBag.Title = "Index";
+    Layout = "~/Views/Shared/AdminLayout.cshtml";
+}
+
+<script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+<script src="~/Scripts/jquery-3.4.1.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+<script src="~/Scripts/SweetAlertSil.js"></script>
+
+@model List<Personel>
+<style>
+    .tbl_personel {
+        margin-top: 40px;
+    }
+    tbody tr td:not(#gorsel) {
+        vertical-align: middle;
+        width: auto;
+    }
+</style>
+<div class="container-fluid tbl_personel">
+    <h2>Personeller (Toplam Sayı : @ViewBag.PersonelSayi)</h2>
+    <hr />
+    <table class="table table-striped" id="tbl1">
+        <thead>
+            <tr>
+                <th>ID</th>
+                <th>Ad</th>
+                <th>Soyad</th>
+                <th>Görsel</th>
+                <th>Departman</th>
+                <th>Sil</th>
+                <th>Güncelle</th>
+                <th>Detay</th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var item in Model)
+            {
+                <tr>
+                    <td>@item.PersonelID</td>
+                    <td>@item.PersonelAd</td>
+                    <td>@item.PersonelSoyad</td>
+                    <td id="gorsel">
+                        <img src="@item.PersonelGorsel" style="width:100px; height:50px;" />
+                    </td>
+                    <td>@item.Departman.DepartmanAd</td>
+                    <td><a href="/Personel/PersonelSil/@item.PersonelID" id="Button3" runat="server" class="btn btn-danger btn-block" onclick="return conFunction(this);">Sil</a></td>
+                    <td><a href="/Personel/PersonelGetir/@item.PersonelID" class="btn btn-success btn-block">Güncelle</a></td>
+                    <td><a href="/Departman/DepartmanPersonelSatis/@item.PersonelID" class="btn btn-dark btn-block">Detay</a></td>
+                </tr>
+            }
+        </tbody>
+    </table>
+    <a class="btn btn-primary" href="/Personel/PersonelEkle">Yeni Personel</a>
+</div>

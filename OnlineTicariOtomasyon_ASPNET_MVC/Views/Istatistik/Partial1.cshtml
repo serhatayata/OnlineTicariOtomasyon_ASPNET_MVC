@@ -1,0 +1,84 @@
+﻿
+@using OnlineTicariOtomasyon_ASPNET_MVC.Models.Siniflar.KolayTablolar
+@model IEnumerable<PersonelDepartman> 
+<div class="card">
+    <div class="card-header">
+        <h3 class="card-title">Departman Personel Sayıları</h3>
+    </div>
+    <!-- /.card-header -->
+    <div class="card-body p-0">
+        <table class="table table-bordered">
+            <thead>
+                <tr>
+                    <th style="width: 10px">#</th>
+                    <th>Departman</th>
+                    <th>Durum Çubuğu</th>
+                    <th style="width: 40px">Sayı</th>
+                </tr>
+            </thead>
+            <tbody>
+                @{
+                    int siraNo = 0;
+                }
+                @foreach (var item in Model)
+                {
+                    <tr>
+                        <td>@{siraNo++;}@siraNo</td>
+                        <td>@item.DepartmanAd</td>
+                        <td>
+                            @switch (item.Sayi)
+                            {
+                                case 0:
+                                    <div class="progress progress-xs">
+                                        <div class="progress-bar bg-cyan" style="width: 0%"></div>
+                                    </div>
+                                    break;
+                                case 1:
+                                    <div class="progress progress-xs">
+                                        <div class="progress-bar progress-bar-danger" style="width: 5%"></div>
+                                    </div>
+                                    break;
+                                case 2:
+                                    <div class="progress progress-xs">
+                                        <div class="progress-bar bg-warning" style="width: 20%"></div>
+                                    </div>
+                                    break;
+                                case 3:
+                                    <div class="progress progress-xs">
+                                        <div class="progress-bar bg-success" style="width: 50%"></div>
+                                    </div>
+                                    break;
+                                default:
+                                    <div class="progress progress-xs">
+                                        <div class="progress-bar bg-danger" style="width:70% "></div>
+                                    </div>
+                                    break;
+                            }
+                        </td>
+                        <td>
+                            @switch (item.Sayi)
+                            {
+                                case 0:
+                                    <span class="badge bg-cyan">@item.Sayi</span>
+                                    break;
+                                case 1:
+                        <span class="badge bg-primary">@item.Sayi</span>
+                                    break;
+                                case 2:
+                        <span class="badge bg-warning">@item.Sayi </span>
+                                    break;
+                                case 3:
+                        <span class="badge bg-success">@item.Sayi</span>
+                                    break;
+                                default:
+                        <span class="badge bg-danger">@item.Sayi </span>
+                                    break;
+                            }
+                        </td>
+                    </tr>
+                }
+            </tbody>
+        </table>
+    </div>
+    <!-- /.card-body -->
+</div>

@@ -1,0 +1,43 @@
+﻿
+@{
+    ViewBag.Title = "YeniKalem";
+    Layout = "~/Views/Shared/AdminLayout.cshtml";
+}
+@using OnlineTicariOtomasyon_ASPNET_MVC.Models.Siniflar
+@model FaturaKalem
+<link href="~/Content/style.css" rel="stylesheet" />
+<br />
+<div class="container-fluid">
+    <h2>Fatura Kalem Ekleme Sayfası</h2>
+    <hr />
+    @using (Html.BeginForm("YeniKalem", "Fatura", FormMethod.Post))
+    {
+        <div class="form-group">
+            @Html.HiddenFor(x => x.FaturaID)
+            <label class="labelAciklama">Açıklama</label>
+            <input type="text" name="Aciklama" class="form-control" />
+        </div>
+        <div class="form-group">
+            <label class="labelAciklama">Miktar</label>
+            <input type="text" name="Miktar" class="form-control" />
+        </div>
+        <div class="form-group">
+            <label class="labelAciklama">Birim Fiyat</label>
+            <input type="text" name="BirimFiyat" class="form-control" />
+        </div>
+        <div class="form-group">
+            <label class="labelAciklama">Tutar</label>
+            <input type="text" name="Tutar" class="form-control" />
+        </div>
+        <div class="form-group">
+            <label class="labelAciklama">Fatura ID</label>
+            @Html.TextBoxFor(x => x.FaturaID, new { @class = "form-control", @readonly = "readonly" })
+        </div>
+        <br />
+        <button class="btn btn-primary btn-block">Kalem Ekle</button>
+
+    }
+</div>
+
+
+

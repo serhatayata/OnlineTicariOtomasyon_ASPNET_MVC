@@ -1,0 +1,48 @@
+﻿@using OnlineTicariOtomasyon_ASPNET_MVC.Models.Siniflar
+@{
+    ViewBag.Title = "Index";
+    Layout = "~/Views/Shared/AdminLayout.cshtml";
+}
+<script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+<script src="~/Scripts/jquery-3.4.1.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+<script src="~/Scripts/SweetAlertSil.js"></script>
+<br />
+@model List<Urunler>
+<div class="container-fluid tbl_kategori">
+    <h2>Ürünler</h2>
+    <hr />
+    <table class="table table-bordered" id="tbl1">
+        <thead>
+            <tr>
+                <th>Ürün Adı</th>
+                <th>Marka</th>
+                <th>Stok</th>
+                <th>Alış Fiyat</th>
+                <th>Satış Fiyat</th>
+                <th>Kategori</th>
+                <th>Sil</th>
+                <th>Güncelle</th>
+                <th>Satış Yap</th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var item in Model)
+            {
+                <tr>
+                    <td>@item.UrunAd</td>
+                    <td>@item.Marka</td>
+                    <td>@item.Stok</td>
+                    <td>@item.AlisFiyati ₺</td>
+                    <td>@item.SatisFiyati ₺</td>
+                    <td>@item.Kategori.KategoriAd</td>
+                    <td><a href="/Urunler/UrunSil/@item.UrunID" id="Button3" runat="server" class="btn btn-danger btn-block" onclick="return conFunction(this);">Sil</a></td>
+                    <td><a href="/Urunler/UrunGetir/@item.UrunID" class="btn btn-success btn-block">Güncelle</a></td>
+                    <td><a href="/Urunler/SatisYap/@item.UrunID" class="btn btn-primary btn-block">Satış Yap</a></td>
+                </tr>
+            }
+        </tbody>
+    </table>
+    <a class="btn btn-primary" href="/Urunler/UrunEkle">Yeni Ürün</a>
+</div>

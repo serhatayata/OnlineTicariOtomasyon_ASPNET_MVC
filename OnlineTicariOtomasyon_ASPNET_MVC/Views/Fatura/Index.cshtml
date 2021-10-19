@@ -1,0 +1,96 @@
+﻿@using OnlineTicariOtomasyon_ASPNET_MVC.Models.Siniflar
+@{
+    ViewBag.Title = "Index";
+    Layout = "~/Views/Shared/AdminLayout.cshtml";
+}
+@model List<Faturalar>
+<style>
+    .tbl_fatura {
+        margin-top: 40px;
+    }
+
+    tbody tr td {
+        text-align: center;
+    }
+
+    thead tr th {
+        text-align: center !important;
+    }
+</style>
+<div class="container-fluid tbl_fatura">
+    <h2>Faturalar (Toplam Fatura Sayısı : @ViewBag.ToplamFatura)</h2>
+    <hr />
+    <table class="table table-striped" id="tbl1">
+        <thead>
+            <tr>
+                <th>Sıra No</th>
+                <th>Seri No</th>
+                <th>Tarih</th>
+                <th>Saat</th>
+                <th>Toplam</th>
+                <th>Sil</th>
+                <th>Güncelle</th>
+                <th>Detaylar</th>
+                <th>Yeni Kalem</th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var item in Model)
+            {
+                <tr>
+                    <td>@item.FaturaSiraNo</td>
+                    <td>@item.FaturaSeriNo</td>
+                    <td>@item.Tarih</td>
+                    <td>@item.Saat</td>
+                    <td>@item.Toplam ₺</td>
+                    <td><a href="/Fatura/FaturaSil/@item.FaturaID" class="btn btn-danger btn-block">Sil</a></td>
+                    <td><a href="/Fatura/FaturaGetir/@item.FaturaID" class="btn btn-success btn-block">Güncelle</a></td>
+                    <td><a href="/Fatura/FaturaDetay/@item.FaturaID" class="btn btn-dark btn-block">Detay</a></td>
+                    <td><a  onclick="location.href='@Url.Action("YeniKalem","Fatura",new { id=item.FaturaID })'" class="btn btn-info btn-block">Yeni Kalem</a></td>
+                </tr>
+            }
+        </tbody>
+    </table>
+    <a class="btn btn-primary" href="/Fatura/FaturaEkle">Yeni Fatura Ekle</a>
+    <br /> <br />
+    <button type="button" class="btn btn-warning" data-toggle="modal" data-target="#Modal1">
+        Popup Penceresi
+    </button>
+</div>
+<!-- Modal1 -->
+<div class="modal" id="Modal1">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h2 class="modal-title">Popup Ekranı</h2>
+            </div>
+            <div class="modal-body">
+                <table class="table table-bordered" id="tbl2">
+                    <thead>
+                        <tr>
+                            <th>Seri No</th>
+                            <th>Sıra No</th>
+                            <th>Tarih</th>
+                            <th>Tutar</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        @foreach (var item in Model)
+                        {
+                            <tr>
+                                <td>@item.FaturaSeriNo</td>
+                                <td>@item.FaturaSiraNo</td>
+                                <td>@item.Tarih</td>
+                                <td>@item.Toplam</td>
+                            </tr>
+                        }
+                    </tbody>
+                </table>
+                <button type="button" class="btn btn-danger" data-dismiss="modal">
+                    Çıkış
+                </button>
+            </div>
+        </div>
+    </div>
+</div>
+

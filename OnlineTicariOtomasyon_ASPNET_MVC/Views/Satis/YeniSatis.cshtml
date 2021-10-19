@@ -1,0 +1,47 @@
+﻿@using OnlineTicariOtomasyon_ASPNET_MVC.Models.Siniflar
+@{
+    ViewBag.Title = "YeniSatis";
+    Layout = "~/Views/Shared/AdminLayout.cshtml";
+}
+@model SatisHareket
+<link href="~/Content/style.css" rel="stylesheet" />
+<script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+<script src="~/Scripts/jquery-3.4.1.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+<script src="~/Scripts/SweetAlertEkle.js"></script>
+<br />
+<h2>Yeni Satış Sayfası</h2>
+<hr />
+<form class="form-group" method="POST">
+    <div class="form-group">
+        <label class="labelAciklama">Ürün</label>
+        @Html.DropDownListFor(x => x.UrunID, (List<SelectListItem>)ViewBag.urun, new { @class = "form-control", @style = "background-color: #f5f0f0" })
+    </div>
+    <div class="form-group">
+        <label class="labelAciklama">Cari</label>
+        @Html.DropDownListFor(x => x.CariID, (List<SelectListItem>)ViewBag.cari, new { @class = "form-control", @style = "background-color: #f5f0f0" })
+    </div>
+    <div class="form-group">
+        <label class="labelAciklama">Personel</label>
+        @Html.DropDownListFor(x => x.PersonelID, (List<SelectListItem>)ViewBag.personel, new { @class = "form-control", @style = "background-color: #f5f0f0" })
+    </div>
+    <div class="form-group">
+        <label class="labelAciklama">Adet</label>
+        @Html.TextBoxFor(x => x.Adet, new { @class = "form-control" })
+    </div>
+    <div class="form-group">
+        <label class="labelAciklama">Fiyat</label>
+        @Html.TextBoxFor(x => x.Fiyat, new { @class = "form-control" })
+    </div>
+    <div class="form-group">
+        <label class="labelAciklama">Toplam Tutar</label>
+        @Html.TextBoxFor(x => x.ToplamTutar, new { @class = "form-control" })
+    </div>
+    <div class="form-group">
+        @Html.HiddenFor(x => x.Durum)
+    </div>
+    <br />
+    <button id="Button3" runat="server" class="btn btn-primary btn-block" onclick="return conFunction(this);">Satış Yap</button>
+</form>
+

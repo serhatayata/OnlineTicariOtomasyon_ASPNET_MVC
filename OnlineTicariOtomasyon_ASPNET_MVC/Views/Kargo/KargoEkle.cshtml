@@ -1,0 +1,44 @@
+﻿
+@{
+    ViewBag.Title = "KargoEkle";
+    Layout = "~/Views/Shared/AdminLayout.cshtml";
+}
+@using OnlineTicariOtomasyon_ASPNET_MVC.Models.Siniflar
+@model KargoDetay 
+<link href="~/Content/style.css" rel="stylesheet" />
+<script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+<script src="~/Scripts/jquery-3.4.1.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+<script src="~/Scripts/SweetAlertEkle.js"></script>
+<br />
+<h2>Yeni Kargo Sayfası</h2>
+<hr />
+<form class="form-group" method="POST">
+    <div class="form-group">
+        <label class="labelAciklama">Takip Kodu </label>
+        <input type="text" class="form-control" value="@ViewBag.TakipKod" readonly name="TakipKodu" />  
+    </div>
+    <div class="form-group">
+        <label class="labelAciklama">Personel</label>
+        @Html.TextBoxFor(x => x.Personel, new { @class = "form-control" })
+    </div>
+    <div class="form-group">
+        <label class="labelAciklama">Alıcı <a href="/Kargo/AliciAra"></a></label>
+        @Html.TextBoxFor(x => x.Alici, new { @class = "form-control" })
+    </div>
+    <div class="form-group">
+        <label class="labelAciklama">Tarih</label>
+        <input class="form-control" type="date" name="Tarih" />
+    </div>
+    <div class="form-group">
+        <label class="labelAciklama">Açıklama</label>
+        @Html.TextAreaFor(x => x.Aciklama, new { @class = "form-control" , @rows = "5"})
+    </div>
+    <div class="form-group">
+        @Html.HiddenFor(x => x.Durum)
+    </div>
+    <br />
+    <button id="Button3" runat="server" class="btn btn-primary btn-block" onclick="return conFunction(this);">Kaydet</button>
+</form>
+

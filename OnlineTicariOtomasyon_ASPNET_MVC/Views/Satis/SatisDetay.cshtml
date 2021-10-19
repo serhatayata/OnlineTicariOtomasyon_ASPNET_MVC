@@ -1,0 +1,44 @@
+﻿
+@{
+    ViewBag.Title = "SatisDetay";
+    Layout = "~/Views/Shared/AdminLayout.cshtml";
+}
+@using OnlineTicariOtomasyon_ASPNET_MVC.Models.Siniflar
+@model List<SatisHareket>
+<br />
+<div class="container-fluid">
+    <h2>Departman Detay Sayfası</h2>
+    <hr />
+    <ol class="breadcrumb mb-4">
+        <li class="breadcrumb-item active">Satış ID : @ViewBag.satisID</li>
+    </ol>
+    <table class="table table-hover" id="tbl1">
+        <thead>
+            <tr>
+                <th>Ürün</th>
+                <th>Cari</th>
+                <th>Personel</th>
+                <th>Fiyat</th>
+                <th>Adet</th>
+                <th>Tutar</th>
+                <th>Tarih</th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var item in Model)
+            {
+                <tr>
+                    <td>@item.Urunler.UrunAd</td>
+                    <td>@item.Cariler.CariAd @item.Cariler.CariSoyad</td>
+                    <td>@item.Personel.PersonelAd @item.Personel.PersonelSoyad </td>
+                    <td>@item.Fiyat</td>
+                    <td>@item.Adet</td>
+                    <td>@item.ToplamTutar</td>
+                    <td>@item.Tarih</td>
+                </tr>
+            }
+        </tbody>
+    </table>
+    <button class="btn btn-primary">Yazdır</button>
+</div>
+

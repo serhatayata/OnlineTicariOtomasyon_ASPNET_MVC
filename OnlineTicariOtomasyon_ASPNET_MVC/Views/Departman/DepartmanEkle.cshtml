@@ -1,0 +1,23 @@
+﻿@using OnlineTicariOtomasyon_ASPNET_MVC.Models.Siniflar
+@model Departman
+@{
+    ViewBag.Title = "DepartmanEkle";
+    Layout = "~/Views/Shared/AdminLayout.cshtml";
+}
+<link href="~/Content/style.css" rel="stylesheet" />
+<script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+<script src="~/Scripts/jquery-3.4.1.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+<script src="~/Scripts/SweetAlertEkle.js"></script>
+
+<br />
+<h2>Yeni Departman Sayfası</h2>
+<hr />
+<form class="form-group" method="POST">
+    <div class="form-group">
+        <label class="labelAciklama">Departman Adı</label>
+        @Html.TextBoxFor(x => x.DepartmanAd, new { @class = "form-control" })
+    </div>
+    <button id="Button3" runat="server" class="btn btn-primary btn-block" onclick="return conFunction(this);">Kaydet</button>
+</form>

@@ -1,0 +1,46 @@
+﻿@using OnlineTicariOtomasyon_ASPNET_MVC.Models.Siniflar
+@{
+    ViewBag.Title = "FaturaEkle";
+    Layout = "~/Views/Shared/AdminLayout.cshtml";
+}
+@model Faturalar
+<link href="~/Content/style.css" rel="stylesheet" />
+<script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+<script src="~/Scripts/jquery-3.4.1.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+<script src="~/Scripts/SweetAlertEkle.js"></script>
+<br />
+<div class="container-fluid">
+    <h2>Fatura Ekleme Sayfası</h2>
+    <hr />
+    <form class="form-group" method="POST">
+        <div class="form-group">
+            <label class="labelAciklama">Sıra No</label>
+            @Html.TextBoxFor(x => x.FaturaSiraNo, new { @class = "form-control" })
+        </div>
+        <div class="form-group">
+            <label class="labelAciklama">Seri No</label>
+            @Html.TextBoxFor(x => x.FaturaSeriNo, new { @class = "form-control" })
+        </div>
+        <div class="form-group">
+            <label class="labelAciklama">Vergi Dairesi</label>
+            @Html.TextBoxFor(x => x.VergiDairesi, new { @class = "form-control" })
+        </div>
+        <div class="form-group">
+            <label class="labelAciklama">Teslim Eden</label>
+            @Html.TextBoxFor(x => x.TeslimEden, new { @class = "form-control" })
+        </div>
+        <div class="form-group">
+            <label class="labelAciklama">Teslim Alan</label>
+            @Html.TextBoxFor(x => x.TeslimAlan, new { @class = "form-control" })
+        </div>
+        @Html.HiddenFor(x=>x.Toplam)
+        <br />
+        <button id="Button3" runat="server" class="btn btn-primary btn-block" onclick="return conFunction(this);">Fatura Ekle</button>
+    </form>
+
+</div>
+
+
+

@@ -1,0 +1,51 @@
+﻿@using OnlineTicariOtomasyon_ASPNET_MVC.Models.Siniflar
+@{
+    ViewBag.Title = "FaturaGetir";
+    Layout = "~/Views/Shared/AdminLayout.cshtml";
+}
+<link href="~/Content/style.css" rel="stylesheet" />
+<script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+<script src="~/Scripts/jquery-3.4.1.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+<script src="~/Scripts/SweetAlertGuncelle.js"></script>
+@model Faturalar
+<br />
+<div class="container">
+    <h2>Fatura Güncelleme Sayfası</h2>
+    <hr />
+    @using (Html.BeginForm("FaturaGuncelle", "Fatura", FormMethod.Post))
+    {
+        @Html.HiddenFor(x => x.Durum)
+        <div class="form-group">
+            <label class="labelAciklama">Fatura ID</label>
+            @Html.TextBoxFor(x => x.FaturaID, new { @class = "form-control", @readonly = "readonly" })
+        </div>
+        <div class="form-group">
+            <label class="labelAciklama">Sıra No</label>
+            @Html.TextBoxFor(x => x.FaturaSiraNo, new { @class = "form-control" })
+        </div>
+        <div class="form-group">
+            <label class="labelAciklama">Seri No</label>
+            @Html.TextBoxFor(x => x.FaturaSeriNo, new { @class = "form-control" })
+        </div>
+        <div class="form-group">
+            <label class="labelAciklama">Vergi Dairesi</label>
+            @Html.TextBoxFor(x => x.VergiDairesi, new { @class = "form-control" })
+        </div>
+        <div class="form-group">
+            <label class="labelAciklama">Teslim Eden</label>
+            @Html.TextBoxFor(x => x.TeslimEden, new { @class = "form-control" })
+        </div>
+        <div class="form-group">
+            <label class="labelAciklama">Teslim Alan</label>
+            @Html.TextBoxFor(x => x.TeslimAlan, new { @class = "form-control" })
+        </div>
+        <div class="form-group">
+            <button runat="server" class="btn btn-primary btn-block" onclick="return conFunction(this);">
+                Güncelle
+            </button>
+        </div>
+    }
+</div>
+
