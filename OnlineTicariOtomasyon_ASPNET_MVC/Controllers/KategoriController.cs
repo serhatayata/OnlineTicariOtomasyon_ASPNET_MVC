@@ -49,5 +49,29 @@ namespace OnlineTicariOtomasyon_ASPNET_MVC.Controllers
             db.SaveChanges();
             return RedirectToAction("Index");
         }
+
+
+
+        //public JsonResult List()
+        //{
+        //    return Json(db.Kategoris.ToList(), JsonRequestBehavior.AllowGet);
+        //}
+        //public JsonResult Add(Kategori k)
+        //{
+        //    return Json(KategoriEkle(k), JsonRequestBehavior.AllowGet);
+        //}
+        //public JsonResult GetbyID(int id)
+        //{
+        //    var ktg = db.Kategoris.Find(id);
+        //    return Json(ktg, JsonRequestBehavior.AllowGet);
+        //}
+        //public JsonResult Update(Kategori k)
+        //{
+        //    return Json(KategoriGuncelle(k), JsonRequestBehavior.AllowGet);
+        //}
+        //public JsonResult Delete(int id)
+        //{
+        //    return Json(KategoriSil(id), JsonRequestBehavior.AllowGet);
+        //}
     }
 }

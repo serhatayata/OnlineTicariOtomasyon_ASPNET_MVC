@@ -36,5 +36,20 @@ namespace OnlineTicariOtomasyon_ASPNET_MVC.Controllers
             var degerler = db.SatisHarekets.Where(x => x.CariID == id).ToList();
             return View(degerler);
         }
+        public ActionResult GelenMesajlar()
+        {
+            var mesajlar = db.Mesajlars.ToList();
+            return View(mesajlar);
+        }
+        [HttpGet]
+        public ActionResult YeniMesaj()
+        {
+            return View();
+        }
+        //[HttpPost]
+        //public ActionResult YeniMesaj()
+        //{
+        //    return View();
+        //}
     }
 }

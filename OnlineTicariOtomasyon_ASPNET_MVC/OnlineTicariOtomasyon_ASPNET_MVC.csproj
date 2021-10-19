@@ -178,6 +178,7 @@
     <Compile Include="Models\Siniflar\KolayTablolar\PersonelDepartman.cs" />
     <Compile Include="Models\Siniflar\KolayTablolar\StokMiktari.cs" />
     <Compile Include="Models\Siniflar\KolayTablolar\ViewModelKolayTablolar.cs" />
+    <Compile Include="Models\Siniflar\Mesajlar.cs" />
     <Compile Include="Models\Siniflar\Personel.cs" />
     <Compile Include="Models\Siniflar\SatisHareket.cs" />
     <Compile Include="Models\Siniflar\Urunler.cs" />
@@ -385,6 +386,9 @@
     <Content Include="Content\Site.css" />
     <Content Include="Image\ProfilePicture1.jpg.jpg" />
     <Content Include="Image\ProfilePicture2.jpg.jpg" />
+    <Content Include="img\FavICON1.png" />
+    <Content Include="img\FavICON2.png" />
+    <Content Include="img\FavICON3.png" />
     <Content Include="img\OnlineTicariICON.png" />
     <Content Include="Scripts\bootstrap.js" />
     <Content Include="Scripts\bootstrap.min.js" />
@@ -659,9 +663,11 @@
     <Content Include="Views\Grafik\ChartPie.cshtml" />
     <Content Include="Views\Grafik\ChartLine.cshtml" />
     <Content Include="Views\Grafik\ChartColumn.cshtml" />
+    <Content Include="Views\CariPanel\GelenMesajlar.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
+    <Folder Include="Views\Mesaj\" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="fonts\glyphicons-halflings-regular.woff2" />
