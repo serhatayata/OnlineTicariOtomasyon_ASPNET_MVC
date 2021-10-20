@@ -666,8 +666,8 @@
     <Content Include="Views\CariPanel\GelenMesajlar.cshtml" />
     <Content Include="Views\Istatistik\ToplamSatis.cshtml" />
     <Content Include="Views\CariPanel\GidenMesajlar.cshtml" />
-    <Content Include="Views\CariPanel\MesajKutusu.cshtml" />
     <Content Include="Views\Shared\_CariLayout.cshtml" />
+    <Content Include="Views\CariPanel\MesajDetay.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

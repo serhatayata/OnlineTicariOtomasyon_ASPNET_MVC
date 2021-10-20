@@ -36,7 +36,7 @@ namespace OnlineTicariOtomasyon_ASPNET_MVC.Controllers
         [HttpPost]
         public ActionResult Partial2(Cariler p)
         {
-            var bilgiler = db.Carilers.FirstOrDefault(x => x.CariMail == p.CariMail && x.CariSifre == p.CariSifre);
+            var bilgiler = db.Carilers.FirstOrDefault(x => x.CariMail == p.CariMail && x.CariSifre == p.CariSifre && x.Durum==true);
             if (bilgiler != null)
             {
                 FormsAuthentication.SetAuthCookie(bilgiler.CariMail,false);
