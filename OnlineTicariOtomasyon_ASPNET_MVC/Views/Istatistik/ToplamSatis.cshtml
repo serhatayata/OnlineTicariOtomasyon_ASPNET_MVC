@@ -1,0 +1,90 @@
+﻿@using OnlineTicariOtomasyon_ASPNET_MVC.Models.Siniflar.KolayTablolar
+@model IEnumerable<ToplamSatis>
+
+<div class="card">
+    <div class="card-header">
+        <h3 class="card-title">En Çok Satılan Kategoriler</h3>
+    </div>
+    <!-- /.card-header -->
+    <div class="card-body p-0">
+        <table class="table table-bordered">
+            <thead>
+                <tr>
+                    <th style="width: 10px">#</th>
+                    <th>Personel</th>
+                    <th>Satış Oranı</th>
+                    <th>Toplam Satış</th>
+                </tr>
+            </thead>
+            <tbody>
+                @{
+                    int siraNo = 0;
+                }
+                @foreach (var item in Model)
+                {
+                    <tr>
+                        <td>@{siraNo++;}@siraNo</td>
+                        <td>@item.PersonelAd</td>
+                        @{ 
+                            int toplamSatis = ViewBag.toplamSatisAdet;
+                        }
+                    <td>
+                        @{int yuzde = (item.SatisAdet*100)/toplamSatis;}
+
+                        @if (yuzde > 0 && yuzde < 20)
+                        {
+                            <div class="progress progress-xs">
+                                <div class="progress-bar bg-danger" style="width: 20px"></div>
+                            </div>
+                        }
+                        else if (yuzde >= 20 && yuzde < 40)
+                        {
+                            <div class="progress progress-xs">
+                                <div class="progress-bar progress-bar-warning" style="width: 40px"></div>
+                            </div>
+                        }
+                        else if (yuzde >= 40 && yuzde < 60)
+                        {
+                            <div class="progress progress-xs">
+                                <div class="progress-bar bg-primary" style="width: 70px"></div>
+                            </div>
+                        }
+                        else if (yuzde >= 60 && yuzde < 80)
+                        {
+                            <div class="progress progress-xs">
+                                <div class="progress-bar bg-success" style="width: 90px"></div>
+                            </div>
+                        }
+                        else if (yuzde >= 80 && yuzde <= 100)
+                        {
+                            <div class="progress progress-xs">
+                                <div class="progress-bar bg-success" style="width: 90px"></div>
+                            </div>
+                        }
+                    </td>
+                        <td>
+                            @if (item.SatisAdet <= 2)
+                            {
+                                <span class="badge bg-danger">@item.SatisAdet </span>
+                            }
+                            else if (item.SatisAdet > 2 && item.SatisAdet <= 10)
+                            {
+                                <span class="badge bg-warning">@item.SatisAdet </span>
+                            }
+                            else if (item.SatisAdet > 10 && item.SatisAdet <= 15)
+                            {
+                                <span class="badge bg-primary">@item.SatisAdet </span>
+                            }
+                            else if (item.SatisAdet > 15)
+                            {
+                                <span class="badge bg-success">@item.SatisAdet </span>
+                            }
+                        </td>
+                    </tr>
+                }
+
+            </tbody>
+        </table>
+    </div>
+    <!-- /.card-body -->
+</div>

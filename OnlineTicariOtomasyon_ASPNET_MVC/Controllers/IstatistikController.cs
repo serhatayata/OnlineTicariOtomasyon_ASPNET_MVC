@@ -90,6 +90,20 @@ namespace OnlineTicariOtomasyon_ASPNET_MVC.Controllers
             ViewBag.sorguCariToplam1 = (double)SorguCariToplam1;
             return View(vm);
         }
+        public PartialViewResult ToplamSatis()
+        {
+            var sorgu = (from sh in db.SatisHarekets where sh.Durum == true
+                         group sh by new { sh.Personel } into g
+                         select new ToplamSatis
+                         {
+                             PersonelAd = g.Key.Personel.PersonelAd,
+                             SatisAdet = g.Sum(x => x.Adet)
+                         }
+                ).OrderByDescending(x=>x.SatisAdet).Take(5).ToList();
+            var sorgu2 = db.SatisHarekets.Sum(x => x.Adet);
+            ViewBag.toplamSatisAdet = sorgu2;
+            return PartialView(sorgu);
+        }
         public PartialViewResult Partial1()
         {
             var sorgu = (from x in db.Personels where x.Durum==true

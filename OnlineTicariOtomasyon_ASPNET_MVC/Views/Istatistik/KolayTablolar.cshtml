@@ -40,65 +40,8 @@
                 <div class="container-fluid">
                     <div class="row">
                         <div class="col-md-6">
-                            <div class="card">
-                                <div class="card-header">
-                                    <h3 class="card-title">Stok Miktar Tablosu</h3>
-                                </div>
-                                <!-- /.card-header -->
-                                <div class="card-body p-0">
-                                    <table class="table">
-                                        <thead>
-                                            <tr>
-                                                <th style="width: 10px">#</th>
-                                                <th>Ürün</th>
-                                                <th>Doluluk</th>
-                                                <th style="width: 40px">Miktar</th>
-                                            </tr>
-                                        </thead>
-                                        <tbody>
-                                            @{
-                                                int siraNoStok = 0;
-                                            }
-                                            @foreach (var item in Model.StokMiktaris)
-                                            {
-                                                <tr>
-                                                    <td>@{siraNoStok++;}@siraNoStok</td>
-                                                    <td>@item.UrunAd</td>
-                                                    <td>
-                                                        @if (item.StokAdet <= 40)
-                                                        {
-                                                            <div class="progress progress-xs">
-                                                                <div class="progress-bar bg-danger" style="width: 40%"></div>
-                                                            </div>
-                                                        }
-                                                        else if (item.StokAdet > 40 && item.StokAdet <= 80)
-                                                        {
-                                                            <div class="progress progress-xs">
-                                                                <div class="progress-bar bg-warning" style="width: 60%"></div>
-                                                            </div>
-                                                        }
-                                                        else if (item.StokAdet > 80 && item.StokAdet <= 100)
-                                                        {
-                                                            <div class="progress progress-xs">
-                                                                <div class="progress-bar bg-cyan" style="width: 70%"></div>
-                                                            </div>
-                                                        }
-                                                        else
-                                                        {
-                                                            <div class="progress progress-xs">
-                                                                <div class="progress-bar bg-success" style="width: 90%"></div>
-                                                            </div>
-                                                        }
-                                                    </td>
-                                                    <td>
-                                                        <span class="badge bg-cyan">@item.StokAdet </span>
-                                                    </td>
-                                                </tr>
-                                            }
-                                        </tbody>
-                                    </table>
-                                </div>
-                            </div>
+                            <!--Card-->
+                            @Html.Action("ToplamSatis", "Istatistik")  
                             <!-- /.card -->
                             @Html.Action("Partial1", "Istatistik")
                             <!-- /.card -->

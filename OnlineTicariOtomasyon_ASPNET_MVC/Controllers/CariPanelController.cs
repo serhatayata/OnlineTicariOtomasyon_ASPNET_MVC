@@ -38,7 +38,23 @@ namespace OnlineTicariOtomasyon_ASPNET_MVC.Controllers
         }
         public ActionResult GelenMesajlar()
         {
-            var mesajlar = db.Mesajlars.ToList();
+            var mail = (string)Session["CariMail"];
+            var mesajlar = db.Mesajlars.Where(x=>x.Alici==mail).ToList();
+            var gelenSayisi = db.Mesajlars.Count(x => x.Alici == mail).ToString();
+            ViewBag.GelenSayi = gelenSayisi;
+            var gidenSayisi = db.Mesajlars.Count(x => x.Gonderen == mail).ToString();
+            ViewBag.gidenSayi = gidenSayisi;
+            return View(mesajlar);
+        }
+        
+        public ActionResult GidenMesajlar()
+        {
+            var mail = (string)Session["CariMail"];
+            var mesajlar = db.Mesajlars.Where(x => x.Gonderen == mail).ToList();
+            var gidenSayisi = db.Mesajlars.Count(x => x.Gonderen == mail).ToString();
+            ViewBag.gidenSayi = gidenSayisi;
+            var gelenSayisi = db.Mesajlars.Count(x => x.Alici == mail).ToString();
+            ViewBag.GelenSayi = gelenSayisi;
             return View(mesajlar);
         }
         [HttpGet]

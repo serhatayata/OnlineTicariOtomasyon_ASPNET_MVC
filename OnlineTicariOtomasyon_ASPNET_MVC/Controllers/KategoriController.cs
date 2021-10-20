@@ -18,6 +18,7 @@ namespace OnlineTicariOtomasyon_ASPNET_MVC.Controllers
             var degerler = db.Kategoris.ToList();
             return View(degerler);
         }
+       
         [HttpGet]
         public ActionResult KategoriEkle()
         {
@@ -37,6 +38,7 @@ namespace OnlineTicariOtomasyon_ASPNET_MVC.Controllers
             db.SaveChanges(); 
             return RedirectToAction("Index");
         }
+        
         public ActionResult KategoriGetir(int id)
         {
             var kategori = db.Kategoris.Find(id);
@@ -51,27 +53,5 @@ namespace OnlineTicariOtomasyon_ASPNET_MVC.Controllers
         }
 
 
-
-        //public JsonResult List()
-        //{
-        //    return Json(db.Kategoris.ToList(), JsonRequestBehavior.AllowGet);
-        //}
-        //public JsonResult Add(Kategori k)
-        //{
-        //    return Json(KategoriEkle(k), JsonRequestBehavior.AllowGet);
-        //}
-        //public JsonResult GetbyID(int id)
-        //{
-        //    var ktg = db.Kategoris.Find(id);
-        //    return Json(ktg, JsonRequestBehavior.AllowGet);
-        //}
-        //public JsonResult Update(Kategori k)
-        //{
-        //    return Json(KategoriGuncelle(k), JsonRequestBehavior.AllowGet);
-        //}
-        //public JsonResult Delete(int id)
-        //{
-        //    return Json(KategoriSil(id), JsonRequestBehavior.AllowGet);
-        //}
     }
 }
