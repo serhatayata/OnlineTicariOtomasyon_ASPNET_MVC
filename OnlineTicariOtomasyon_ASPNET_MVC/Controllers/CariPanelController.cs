@@ -39,20 +39,20 @@ namespace OnlineTicariOtomasyon_ASPNET_MVC.Controllers
         public ActionResult GelenMesajlar()
         {
             var mail = (string)Session["CariMail"];
-            var mesajlar = db.Mesajlars.Where(x=>x.Alici==mail).ToList();
+            var mesajlar = db.Mesajlars.Where(x=>x.Alici==mail).OrderByDescending(x => x.Tarih).ToList();
             var gelenSayisi = db.Mesajlars.Count(x => x.Alici == mail).ToString();
             ViewBag.GelenSayi = gelenSayisi;
             var gidenSayisi = db.Mesajlars.Count(x => x.Gonderen == mail).ToString();
-            ViewBag.gidenSayi = gidenSayisi;
+            ViewBag.GidenSayi = gidenSayisi;
             return View(mesajlar);
         }
         
         public ActionResult GidenMesajlar()
         {
             var mail = (string)Session["CariMail"];
-            var mesajlar = db.Mesajlars.Where(x => x.Gonderen == mail).ToList();
+            var mesajlar = db.Mesajlars.Where(x => x.Gonderen == mail).OrderByDescending(x => x.Tarih).ToList();
             var gidenSayisi = db.Mesajlars.Count(x => x.Gonderen == mail).ToString();
-            ViewBag.gidenSayi = gidenSayisi;
+            ViewBag.GidenSayi = gidenSayisi;
             var gelenSayisi = db.Mesajlars.Count(x => x.Alici == mail).ToString();
             ViewBag.GelenSayi = gelenSayisi;
             return View(mesajlar);
@@ -61,9 +61,8 @@ namespace OnlineTicariOtomasyon_ASPNET_MVC.Controllers
         {
             var degerler = db.Mesajlars.Where(x => x.MesajID == id).ToList();
             var mail = (string)Session["CariMail"];
-            var mesajlar = db.Mesajlars.Where(x => x.Gonderen == mail).ToList();
             var gidenSayisi = db.Mesajlars.Count(x => x.Gonderen == mail).ToString();
-            ViewBag.gidenSayi = gidenSayisi;
+            ViewBag.GidenSayi = gidenSayisi;
             var gelenSayisi = db.Mesajlars.Count(x => x.Alici == mail).ToString();
             ViewBag.GelenSayi = gelenSayisi;
             return View(degerler);
@@ -71,6 +70,22 @@ namespace OnlineTicariOtomasyon_ASPNET_MVC.Controllers
         [HttpGet]
         public ActionResult YeniMesaj()
         {
+            var mail = (string)Session["CariMail"];
+            var gidenSayisi = db.Mesajlars.Count(x => x.Gonderen == mail).ToString();
+            ViewBag.GidenSayi = gidenSayisi;
+            var gelenSayisi = db.Mesajlars.Count(x => x.Alici == mail).ToString();
+            ViewBag.GelenSayi = gelenSayisi;
+
+            return View();
+        }
+        [HttpPost]
+        public ActionResult YeniMesaj(Mesajlar m)
+        {
+            var mail = (string)Session["CariMail"];
+            m.Tarih = DateTime.Parse(DateTime.Now.ToShortDateString());
+            m.Gonderen = mail;
+            db.Mesajlars.Add(m);
+            db.SaveChanges();
             return View();
         }
         
