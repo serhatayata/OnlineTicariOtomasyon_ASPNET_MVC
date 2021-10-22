@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Web;
 using System.Web.Mvc;
+using System.Web.Security;
 using OnlineTicariOtomasyon_ASPNET_MVC.Models.Siniflar;
 namespace OnlineTicariOtomasyon_ASPNET_MVC.Controllers
 {
@@ -14,8 +15,28 @@ namespace OnlineTicariOtomasyon_ASPNET_MVC.Controllers
         public ActionResult Index()
         {
             var cariMail = (string)Session["CariMail"];
-            var degerler = db.Carilers.Where(x=>x.Durum==true).FirstOrDefault(x => x.CariMail == cariMail);
+            var degerler = db.Mesajlars.Where(x=>x.Durum==true).Where(x => x.Alici == cariMail).Take(5).ToList();
             ViewBag.m = cariMail;
+            var mailID = db.Carilers.Where(x => x.CariMail == cariMail).Select(y => y.CariID).FirstOrDefault();
+            ViewBag.mailID = mailID;
+            var toplamSatis = db.SatisHarekets.Where(x => x.CariID == mailID).Count();
+            ViewBag.ToplamSatis = toplamSatis;
+            var sehir = db.Carilers.Where(x => x.CariMail == cariMail).Select(y => y.CariSehir).FirstOrDefault();
+            ViewBag.CariSehir = sehir;
+            if (toplamSatis < 1)
+            {
+                ViewBag.ToplamOdeme = 0;
+                ViewBag.ToplamUrunSayisi = 0;
+            }
+            else
+            {
+                var toplamOdeme = db.SatisHarekets.Where(x => x.CariID == mailID).Sum(y => y.ToplamTutar);
+                ViewBag.ToplamOdeme = toplamOdeme;
+                var toplamUrunSayisi = db.SatisHarekets.Where(x => x.CariID == mailID).Sum(y => y.Adet);
+                ViewBag.ToplamUrunSayisi = toplamUrunSayisi;
+            }
+            var adSoyad = db.Carilers.Where(x => x.CariMail == cariMail).Select(y => y.CariAd + " " + y.CariSoyad).FirstOrDefault();
+            ViewBag.AdSoyad = adSoyad;
             return View(degerler);
         }
         [HttpPost]
@@ -36,6 +57,19 @@ namespace OnlineTicariOtomasyon_ASPNET_MVC.Controllers
             var degerler = db.SatisHarekets.Where(x => x.CariID == id).ToList();
             return View(degerler);
         }
+        public ActionResult KargoTakip(string p)
+        {
+            var k = from x in db.KargoDetays where x.Durum == true select x;
+            k = k.Where(x => x.Durum == true).Where(y => y.TakipKodu.Contains(p));
+            var toplamKargo = db.KargoDetays.Where(x => x.Durum == true).Count();
+            ViewBag.ToplamKargo = toplamKargo;
+            return View(k.ToList());
+        }
+        public ActionResult CariKargoDetay(string id)
+        {
+            var degerler = db.KargoTakips.Where(x => x.TakipKodu == id).ToList();
+            return View(degerler);
+        }
         public ActionResult GelenMesajlar()
         {
             var mail = (string)Session["CariMail"];
@@ -44,7 +78,7 @@ namespace OnlineTicariOtomasyon_ASPNET_MVC.Controllers
             ViewBag.GelenSayi = gelenSayisi;
             var gidenSayisi = db.Mesajlars.Where(x => x.Durum == true).Count(x => x.Gonderen == mail).ToString();
             ViewBag.GidenSayi = gidenSayisi;
-            var geriDonusumSayisi = db.Mesajlars.Where(x => x.Durum == false).Count().ToString();
+            var geriDonusumSayisi = db.Mesajlars.Where(x => x.Gonderen == mail && x.Durum == false).Count().ToString();
             ViewBag.GeriDonusumSayisi = geriDonusumSayisi;
             return View(mesajlar);
         }
@@ -56,7 +90,7 @@ namespace OnlineTicariOtomasyon_ASPNET_MVC.Controllers
             ViewBag.GidenSayi = gidenSayisi;
             var gelenSayisi = db.Mesajlars.Where(x => x.Durum == true).Count(x => x.Alici == mail).ToString();
             ViewBag.GelenSayi = gelenSayisi;
-            var geriDonusumSayisi = db.Mesajlars.Where(x => x.Durum == false).Count().ToString();
+            var geriDonusumSayisi = db.Mesajlars.Where(x => x.Gonderen == mail && x.Durum == false).Count().ToString();
             ViewBag.GeriDonusumSayisi = geriDonusumSayisi;
             return View(mesajlar);
         }
@@ -68,7 +102,7 @@ namespace OnlineTicariOtomasyon_ASPNET_MVC.Controllers
             ViewBag.GidenSayi = gidenSayisi;
             var gelenSayisi = db.Mesajlars.Where(x => x.Durum == true).Count(x => x.Alici == mail).ToString();
             ViewBag.GelenSayi = gelenSayisi;
-            var geriDonusumSayisi = db.Mesajlars.Where(x => x.Durum == false).Count().ToString();
+            var geriDonusumSayisi = db.Mesajlars.Where(x => x.Gonderen == mail && x.Durum == false).Count().ToString();
             ViewBag.GeriDonusumSayisi = geriDonusumSayisi;
             return View(degerler);
         }
@@ -80,6 +114,8 @@ namespace OnlineTicariOtomasyon_ASPNET_MVC.Controllers
             ViewBag.GidenSayi = gidenSayisi;
             var gelenSayisi = db.Mesajlars.Where(x => x.Durum == true).Count(x => x.Alici == mail).ToString();
             ViewBag.GelenSayi = gelenSayisi;
+            var geriDonusumSayisi = db.Mesajlars.Where(x => x.Gonderen == mail && x.Durum == false).Count().ToString();
+            ViewBag.GeriDonusumSayisi = geriDonusumSayisi;
             return View();
         }
         [HttpPost]
@@ -96,12 +132,12 @@ namespace OnlineTicariOtomasyon_ASPNET_MVC.Controllers
         public ActionResult GeriDonusumKutusu()
         {
             var mail = (string)Session["CariMail"];
-            var mesajlar = db.Mesajlars.Where(x => x.Durum == false && x.Gonderen == mail || x.Alici == mail).OrderByDescending(x => x.Tarih).ToList();
+            var mesajlar = db.Mesajlars.Where(x => x.Durum == false && x.Gonderen == mail).OrderByDescending(x => x.Tarih).ToList();
             var gidenSayisi = db.Mesajlars.Where(x=>x.Durum==true).Count(x => x.Gonderen == mail).ToString();
             ViewBag.GidenSayi = gidenSayisi;
             var gelenSayisi = db.Mesajlars.Where(x => x.Durum == true).Count(x => x.Alici == mail).ToString();
             ViewBag.GelenSayi = gelenSayisi;
-            var geriDonusumSayisi = db.Mesajlars.Where(x => x.Durum == false).Count().ToString();
+            var geriDonusumSayisi = db.Mesajlars.Where(x=>x.Gonderen == mail && x.Durum == false).Count().ToString();
             ViewBag.GeriDonusumSayisi = geriDonusumSayisi;
             return View(mesajlar);
         }
@@ -114,7 +150,7 @@ namespace OnlineTicariOtomasyon_ASPNET_MVC.Controllers
             ViewBag.GidenSayi = gidenSayisi;
             var gelenSayisi = db.Mesajlars.Where(x => x.Durum == true).Count(x => x.Alici == mail).ToString();
             ViewBag.GelenSayi = gelenSayisi;
-            var geriDonusumSayisi = db.Mesajlars.Where(x => x.Durum == false).Count().ToString();
+            var geriDonusumSayisi = db.Mesajlars.Where(x => x.Gonderen == mail && x.Durum == false).Count().ToString();
             ViewBag.GeriDonusumSayisi = geriDonusumSayisi;
             return View("GelenMesajlar", deger);
         }
@@ -126,7 +162,7 @@ namespace OnlineTicariOtomasyon_ASPNET_MVC.Controllers
             ViewBag.GidenSayi = gidenSayisi;
             var gelenSayisi = db.Mesajlars.Where(x => x.Durum == true).Count(x => x.Alici == mail).ToString();
             ViewBag.GelenSayi = gelenSayisi;
-            var geriDonusumSayisi = db.Mesajlars.Where(x => x.Durum == false).Count().ToString();
+            var geriDonusumSayisi = db.Mesajlars.Where(x => x.Gonderen == mail && x.Durum == false).Count().ToString();
             ViewBag.GeriDonusumSayisi = geriDonusumSayisi;
             return View("GidenMesajlar", deger);
         }
@@ -138,7 +174,7 @@ namespace OnlineTicariOtomasyon_ASPNET_MVC.Controllers
             ViewBag.GidenSayi = gidenSayisi;
             var gelenSayisi = db.Mesajlars.Where(x => x.Durum == true).Count(x => x.Alici == mail).ToString();
             ViewBag.GelenSayi = gelenSayisi;
-            var geriDonusumSayisi = db.Mesajlars.Where(x => x.Durum == false).Count().ToString();
+            var geriDonusumSayisi = db.Mesajlars.Where(x => x.Gonderen == mail && x.Durum == false).Count().ToString();
             ViewBag.GeriDonusumSayisi = geriDonusumSayisi;
             return View("GeriDonusumKutusu", deger);
         }
@@ -149,7 +185,36 @@ namespace OnlineTicariOtomasyon_ASPNET_MVC.Controllers
             db.SaveChanges();
             return RedirectToAction("GelenMesajlar");
         }
-
+        public ActionResult Cikis()
+        {
+            FormsAuthentication.SignOut();
+            Session.Abandon();
+            return RedirectToAction("Index","Login");
+        }
+        public PartialViewResult ProfilAyarlarPartial()
+        {
+            var mail = (string)Session["CariMail"];
+            var id = db.Carilers.Where(x => x.CariMail == mail).Select(y => y.CariID).FirstOrDefault();
+            var cariBul = db.Carilers.Find(id);
+            return PartialView("ProfilAyarlarPartial",cariBul);
+        }
+        [HttpPost]
+        public ActionResult CariProfilGuncelle(Cariler c)
+        {
+            var deger=db.Carilers.Find(c.CariID);
+            deger.CariAd = c.CariAd;
+            deger.CariSoyad = c.CariSoyad;
+            deger.CariMail = c.CariMail;
+            deger.CariSehir = c.CariSehir;
+            deger.CariSifre = c.CariSifre;
+            db.SaveChanges();
+            return RedirectToAction("Index");
+        }
+        public PartialViewResult DuyurularPartial()
+        {
+            var veriler = db.Mesajlars.Where(x => x.Gonderen == "admin" && x.Durum==true).ToList();
+            return PartialView(veriler);
+        }
 
 
     }

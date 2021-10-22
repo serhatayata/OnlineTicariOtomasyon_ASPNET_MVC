@@ -1,0 +1,30 @@
+﻿* {
+    font-size: 14px;
+    font-family: 'Noto Sans', sans-serif;
+}
+
+html {
+    scroll-behavior: smooth;
+}
+
+tfoot input {
+    width: 100%;
+    padding: 3px;
+    box-sizing: border-box;
+}
+
+.renderBody {
+    margin-top: 20px;
+}
+
+main {
+    padding: 0px 40px 0px 20px;
+}
+
+tbody tr td {
+    text-align: center;
+}
+
+thead tr th {
+    text-align: center !important;
+}

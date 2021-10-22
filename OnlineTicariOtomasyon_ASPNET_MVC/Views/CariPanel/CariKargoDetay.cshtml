@@ -1,11 +1,12 @@
 ﻿
 @{
-    ViewBag.Title = "KargoTakip";
-    Layout = "~/Views/Shared/AdminLayout.cshtml";
+    ViewBag.Title = "CariKargoDetay";
+    Layout = "~/Views/Shared/_CariLayout.cshtml";
 }
 @using OnlineTicariOtomasyon_ASPNET_MVC.Models.Siniflar
 @model List<KargoTakip>
 <div class="container-fluid tbl_cariler">
+    <br />
     <h2>Kargo Takip Sayfası</h2>
     <br />
     <table class="table table-striped display">
@@ -16,10 +17,12 @@
             </tr>
         </thead>
         <tbody>
+            @{int sayi = 0;}
             @foreach (var item in Model)
             {
+                { sayi++; }
                 <tr>
-                    <td>@item.Aciklama</td>
+                    <td>Adım @sayi -  @item.Aciklama</td>
                     <td>@item.TarihZaman</td>
                 </tr>
             }
@@ -27,4 +30,5 @@
     </table>
 
 </div>
+
 

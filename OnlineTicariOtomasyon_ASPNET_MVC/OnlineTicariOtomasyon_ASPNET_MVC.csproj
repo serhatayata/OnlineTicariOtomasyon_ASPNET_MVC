@@ -220,6 +220,7 @@
     <Content Include="Content\bootstrap-theme.min.css" />
     <Content Include="Content\bootstrap.css" />
     <Content Include="Content\bootstrap.min.css" />
+    <Content Include="Content\CariLayoutStyle.css" />
     <Content Include="Content\DataTables\css\autoFill.bootstrap.css" />
     <Content Include="Content\DataTables\css\autoFill.bootstrap.min.css" />
     <Content Include="Content\DataTables\css\autoFill.bootstrap4.css" />
@@ -387,9 +388,11 @@
     <Content Include="Content\Site.css" />
     <Content Include="Image\ProfilePicture1.jpg.jpg" />
     <Content Include="Image\ProfilePicture2.jpg.jpg" />
+    <Content Include="img\CustomerProfilPhoto.png" />
     <Content Include="img\FavICON1.png" />
     <Content Include="img\FavICON2.png" />
     <Content Include="img\FavICON3.png" />
+    <Content Include="img\MessageSenderICON.png" />
     <Content Include="img\OnlineTicariICON.png" />
     <Content Include="Scripts\bootstrap.js" />
     <Content Include="Scripts\bootstrap.min.js" />
@@ -671,6 +674,10 @@
     <Content Include="Views\Shared\MesajLayout.cshtml" />
     <Content Include="Views\CariPanel\YeniMesaj.cshtml" />
     <Content Include="Views\CariPanel\GeriDonusumKutusu.cshtml" />
+    <Content Include="Views\CariPanel\KargoTakip.cshtml" />
+    <Content Include="Views\CariPanel\CariKargoDetay.cshtml" />
+    <Content Include="Views\CariPanel\ProfilAyarlarPartial.cshtml" />
+    <Content Include="Views\CariPanel\DuyurularPartial.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
