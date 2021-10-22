@@ -1,0 +1,34 @@
+﻿@using OnlineTicariOtomasyon_ASPNET_MVC.Models.Siniflar
+@model DropdownList1
+
+<br />
+<div class="container">
+    @Html.Label("Kategoriler : ")
+    @Html.DropDownList("DrpKategori",Model.Kategoriler,"---Kategori Seçiniz---",new {@class = "form-control"})
+</div>
+<br />
+<div class="container">
+    @Html.Label("Ürünler : ") 
+    @Html.DropDownList("DrpUrun",Model.Urunler,"---Ürün Seçiniz---",new {@class="form-control"})
+</div>
+
+<script>
+    $(function () {
+        $('#DrpKategori').change(function () {
+            var id = $('#DrpKategori').val();
+            $.ajax({
+                url: '/Kategori/UrunGetir',
+                data: { p: id },
+                type: "POST",
+                dataType: "Json",
+                success: function (data) {
+                    console.log(data);
+                    $('#DrpUrun').empty();
+                    for (var i = 0; i < data.length; i++) {
+                        $('#DrpUrun').append("<option value='" + data[i].Value + "'>" + data[i].Text + "</Option>");
+                    }
+                }
+            });
+        });
+    });
+</script>

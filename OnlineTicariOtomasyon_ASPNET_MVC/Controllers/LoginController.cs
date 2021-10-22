@@ -6,24 +6,21 @@ using System.Web.Mvc;
 using System.Web.Security;
 using OnlineTicariOtomasyon_ASPNET_MVC.Models.Siniflar;
 namespace OnlineTicariOtomasyon_ASPNET_MVC.Controllers
-{
+{   [AllowAnonymous]
     public class LoginController : Controller
     {
         // GET: Login
         Context db = new Context();
-        [AllowAnonymous]
         public ActionResult Index()
         {
             return View();
         }
         [HttpGet]
-        [AllowAnonymous]
         public PartialViewResult Partial1()
         {
             return PartialView();
         }
         [HttpPost]
-        [AllowAnonymous]
         public PartialViewResult Partial1(Cariler cr)
         {
             cr.Durum = true;
@@ -32,13 +29,11 @@ namespace OnlineTicariOtomasyon_ASPNET_MVC.Controllers
             return PartialView();
         }
         [HttpGet]
-        [AllowAnonymous]
         public PartialViewResult Partial2()
         {
             return PartialView();
         }
         [HttpPost]
-        [AllowAnonymous]
         public ActionResult Partial2(Cariler p)
         {
             var bilgiler = db.Carilers.FirstOrDefault(x => x.CariMail == p.CariMail && x.CariSifre == p.CariSifre && x.Durum==true);
@@ -54,13 +49,11 @@ namespace OnlineTicariOtomasyon_ASPNET_MVC.Controllers
             }
         }
         [HttpGet]
-        [AllowAnonymous]
         public PartialViewResult AdminGiris()
         {
             return PartialView();
         }
         [HttpPost]
-        [AllowAnonymous]
         public ActionResult AdminGiris(Admin p)
         {
             var bilgiler = db.Admins.FirstOrDefault(x => x.KullaniciAd == p.KullaniciAd && x.Sifre == p.Sifre);

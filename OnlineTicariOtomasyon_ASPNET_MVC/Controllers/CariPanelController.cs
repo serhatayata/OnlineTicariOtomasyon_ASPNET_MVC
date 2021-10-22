@@ -11,7 +11,6 @@ namespace OnlineTicariOtomasyon_ASPNET_MVC.Controllers
     {
         // GET: CariPanel
         Context db = new Context();
-        [Authorize]
         public ActionResult Index()
         {
             var cariMail = (string)Session["CariMail"];

@@ -51,7 +51,26 @@ namespace OnlineTicariOtomasyon_ASPNET_MVC.Controllers
             db.SaveChanges();
             return RedirectToAction("Index");
         }
-
+        public PartialViewResult KategoriUrunListele()
+        {
+            DropdownList1 cs = new DropdownList1();
+            cs.Kategoriler = new SelectList(db.Kategoris,"KategoriID","KategoriAd");
+            cs.Urunler = new SelectList(db.Urunlers, "UrunID", "UrunAd");
+            return PartialView(cs);
+        }
+        public JsonResult UrunGetir(int p)
+        {
+            var urunListesi = (from x in db.Urunlers
+                               join y in db.Kategoris on x.Kategori.KategoriID equals y.KategoriID
+                               where x.Kategori.KategoriID == p
+                               select new
+                               {
+                                   Text = x.UrunAd,
+                                   Value = x.UrunID.ToString()
+                               }
+                               ).ToList();
+            return Json(urunListesi,JsonRequestBehavior.AllowGet);
+        }
 
     }
 }
