@@ -668,7 +668,9 @@
     <Content Include="Views\CariPanel\GidenMesajlar.cshtml" />
     <Content Include="Views\Shared\_CariLayout.cshtml" />
     <Content Include="Views\CariPanel\MesajDetay.cshtml" />
+    <Content Include="Views\Shared\MesajLayout.cshtml" />
     <Content Include="Views\CariPanel\YeniMesaj.cshtml" />
+    <Content Include="Views\CariPanel\GeriDonusumKutusu.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

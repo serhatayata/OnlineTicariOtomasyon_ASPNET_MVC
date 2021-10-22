@@ -1,6 +1,6 @@
 ﻿
 @{
-    ViewBag.Title = "GidenMesajlar";
+    ViewBag.Title = "GeriDonusumKutusu";
     Layout = "~/Views/Shared/MesajLayout.cshtml";
 }
 
@@ -9,20 +9,20 @@
 <style>
     tbody tr td.mailbox-name,
     tbody tr td.mailbox-date,
-    tbody tr td.mailbox-subject,
-    .card-header
-    {
+    tbody tr td.mailbox-subject {
         vertical-align: middle;
     }
 </style>
+
 <div class="col-md-9">
     <div class="card card-primary card-outline">
         <div class="card-header">
-            <h3 class="card-title">Giden Kutusu</h3>
+            <h3 class="card-title">Geri Dönüşüm Kutusu</h3>
+
             <div class="card-tools">
-                <div class="input-group input-group-sm form-group">
-                    <a href="/CariPanel/GidenMesajlar/" class="btn btn-outline-primary mr-3" style="height:100%">Tüm Mesajlar</a>
-                    @using (Html.BeginForm("GidenKutusuMesajAra", "CariPanel", FormMethod.Post))
+                <div class="input-group input-group-sm">
+                    <a href="/CariPanel/GeriDonusumKutusu/" class="btn btn-outline-primary mr-3" style="height:100%">Tüm Mesajlar</a>
+                    @using (Html.BeginForm("GeriDonusumKutusuMesajAra", "CariPanel", FormMethod.Post))
                     {
                         <div class="form-group" style="display:flex; flex:1;">
                             <input type="text" class="form-control" name="icerik" placeholder="Mail Ara">
@@ -33,9 +33,11 @@
                     }
                 </div>
             </div>
+            <!-- /.card-tools -->
         </div>
+        <!-- /.card-header -->
         <div class="card-body p-0">
-            
+
             <div class="table-responsive mailbox-messages">
                 <table class="table table-hover table-striped">
                     <tbody>
@@ -48,19 +50,17 @@
                                         <label for="check1"></label>
                                     </div>
                                 </td>
-                                <td class="mailbox-star"><a href="#"></a></td>
-                                <td class="mailbox-name"><a href="/CariPanel/MesajDetay/@item.MesajID">@item.Alici</a></td>
+                                <td class="mailbox-name"><a href="/CariPanel/MesajDetay/@item.MesajID">@item.Gonderen</a></td>
                                 <td class="mailbox-subject">
                                     @if (item.Icerik.Length < 20)
                                     {
-                                        <b>@item.Konu </b> <span>&nbsp; - &nbsp; @item.Icerik.Substring(0, item.Icerik.Length)</span>
+                                        <b>@item.Konu </b> <span>&nbsp; - &nbsp; @item.Icerik.Substring(0, item.Icerik.Length)...</span>
                                     }
                                     else
                                     {
-                                        <b>@item.Konu</b> <span>&nbsp; - &nbsp; @item.Icerik.Substring(0,20)...</span>
+                                        <b>@item.Konu</b> <span>&nbsp; - &nbsp; @item.Icerik.Substring(0, 20)...</span>
                                     }
                                 </td>
-                                <td class="mailbox-attachment"></td>
                                 <td class="mailbox-date">
                                     @{
                                         string x = DateTime.Now.ToString("d");
@@ -87,7 +87,11 @@
                         }
                     </tbody>
                 </table>
+                <!-- /.table -->
             </div>
+            <!-- /.mail-box-messages -->
         </div>
+        <!-- /.card-body -->
     </div>
+    <!-- /.card -->
 </div>

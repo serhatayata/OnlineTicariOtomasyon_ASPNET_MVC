@@ -26,6 +26,8 @@ namespace OnlineTicariOtomasyon_ASPNET_MVC.Models.Siniflar
         [StringLength(2000)]
         [Required(ErrorMessage = "Bu alanı boş geçemezsiniz.")]
         public string Icerik { get; set; }
+        public bool Durum { get; set; }
+
         [Column(TypeName = "SmallDateTime")]
         public DateTime Tarih { get; set; }
     }

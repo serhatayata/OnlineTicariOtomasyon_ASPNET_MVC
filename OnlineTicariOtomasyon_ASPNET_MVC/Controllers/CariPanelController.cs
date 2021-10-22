@@ -39,43 +39,47 @@ namespace OnlineTicariOtomasyon_ASPNET_MVC.Controllers
         public ActionResult GelenMesajlar()
         {
             var mail = (string)Session["CariMail"];
-            var mesajlar = db.Mesajlars.Where(x=>x.Alici==mail).OrderByDescending(x => x.Tarih).ToList();
-            var gelenSayisi = db.Mesajlars.Count(x => x.Alici == mail).ToString();
+            var mesajlar = db.Mesajlars.Where(x=>x.Alici==mail && x.Durum==true).OrderByDescending(x => x.Tarih).ToList();
+            var gelenSayisi = db.Mesajlars.Where(x => x.Durum == true).Count(x => x.Alici == mail).ToString();
             ViewBag.GelenSayi = gelenSayisi;
-            var gidenSayisi = db.Mesajlars.Count(x => x.Gonderen == mail).ToString();
+            var gidenSayisi = db.Mesajlars.Where(x => x.Durum == true).Count(x => x.Gonderen == mail).ToString();
             ViewBag.GidenSayi = gidenSayisi;
+            var geriDonusumSayisi = db.Mesajlars.Where(x => x.Durum == false).Count().ToString();
+            ViewBag.GeriDonusumSayisi = geriDonusumSayisi;
             return View(mesajlar);
         }
-        
         public ActionResult GidenMesajlar()
         {
             var mail = (string)Session["CariMail"];
-            var mesajlar = db.Mesajlars.Where(x => x.Gonderen == mail).OrderByDescending(x => x.Tarih).ToList();
-            var gidenSayisi = db.Mesajlars.Count(x => x.Gonderen == mail).ToString();
+            var mesajlar = db.Mesajlars.Where(x => x.Gonderen == mail && x.Durum ==true).OrderByDescending(x => x.Tarih).ToList();
+            var gidenSayisi = db.Mesajlars.Where(x => x.Durum == true).Count(x => x.Gonderen == mail).ToString();
             ViewBag.GidenSayi = gidenSayisi;
-            var gelenSayisi = db.Mesajlars.Count(x => x.Alici == mail).ToString();
+            var gelenSayisi = db.Mesajlars.Where(x => x.Durum == true).Count(x => x.Alici == mail).ToString();
             ViewBag.GelenSayi = gelenSayisi;
+            var geriDonusumSayisi = db.Mesajlars.Where(x => x.Durum == false).Count().ToString();
+            ViewBag.GeriDonusumSayisi = geriDonusumSayisi;
             return View(mesajlar);
         }
         public ActionResult MesajDetay(int id)
         {
             var degerler = db.Mesajlars.Where(x => x.MesajID == id).ToList();
             var mail = (string)Session["CariMail"];
-            var gidenSayisi = db.Mesajlars.Count(x => x.Gonderen == mail).ToString();
+            var gidenSayisi = db.Mesajlars.Where(x => x.Durum == true).Count(x => x.Gonderen == mail).ToString();
             ViewBag.GidenSayi = gidenSayisi;
-            var gelenSayisi = db.Mesajlars.Count(x => x.Alici == mail).ToString();
+            var gelenSayisi = db.Mesajlars.Where(x => x.Durum == true).Count(x => x.Alici == mail).ToString();
             ViewBag.GelenSayi = gelenSayisi;
+            var geriDonusumSayisi = db.Mesajlars.Where(x => x.Durum == false).Count().ToString();
+            ViewBag.GeriDonusumSayisi = geriDonusumSayisi;
             return View(degerler);
         }
         [HttpGet]
         public ActionResult YeniMesaj()
         {
             var mail = (string)Session["CariMail"];
-            var gidenSayisi = db.Mesajlars.Count(x => x.Gonderen == mail).ToString();
+            var gidenSayisi = db.Mesajlars.Where(x => x.Durum == true).Count(x => x.Gonderen == mail).ToString();
             ViewBag.GidenSayi = gidenSayisi;
-            var gelenSayisi = db.Mesajlars.Count(x => x.Alici == mail).ToString();
+            var gelenSayisi = db.Mesajlars.Where(x => x.Durum == true).Count(x => x.Alici == mail).ToString();
             ViewBag.GelenSayi = gelenSayisi;
-
             return View();
         }
         [HttpPost]
@@ -84,10 +88,69 @@ namespace OnlineTicariOtomasyon_ASPNET_MVC.Controllers
             var mail = (string)Session["CariMail"];
             m.Tarih = DateTime.Parse(DateTime.Now.ToShortDateString());
             m.Gonderen = mail;
+            m.Durum = true;
             db.Mesajlars.Add(m);
             db.SaveChanges();
-            return View();
+            return RedirectToAction("GelenMesajlar");
         }
-        
+        public ActionResult GeriDonusumKutusu()
+        {
+            var mail = (string)Session["CariMail"];
+            var mesajlar = db.Mesajlars.Where(x => x.Durum == false && x.Gonderen == mail || x.Alici == mail).OrderByDescending(x => x.Tarih).ToList();
+            var gidenSayisi = db.Mesajlars.Where(x=>x.Durum==true).Count(x => x.Gonderen == mail).ToString();
+            ViewBag.GidenSayi = gidenSayisi;
+            var gelenSayisi = db.Mesajlars.Where(x => x.Durum == true).Count(x => x.Alici == mail).ToString();
+            ViewBag.GelenSayi = gelenSayisi;
+            var geriDonusumSayisi = db.Mesajlars.Where(x => x.Durum == false).Count().ToString();
+            ViewBag.GeriDonusumSayisi = geriDonusumSayisi;
+            return View(mesajlar);
+        }
+        [HttpPost]
+        public ActionResult GelenKutusuMesajAra(string icerik)
+        {
+            var mail = (string)Session["CariMail"];
+            var deger = db.Mesajlars.Where(x => x.Alici == mail && x.Durum==true).Where(x => x.Icerik.Contains(icerik) || x.Gonderen.Contains(icerik) || x.Alici.Contains(icerik) || x.Konu.Contains(icerik) || x.Tarih.ToString().Contains(icerik)).ToList();
+            var gidenSayisi = db.Mesajlars.Where(x => x.Durum == true).Count(x => x.Gonderen == mail).ToString();
+            ViewBag.GidenSayi = gidenSayisi;
+            var gelenSayisi = db.Mesajlars.Where(x => x.Durum == true).Count(x => x.Alici == mail).ToString();
+            ViewBag.GelenSayi = gelenSayisi;
+            var geriDonusumSayisi = db.Mesajlars.Where(x => x.Durum == false).Count().ToString();
+            ViewBag.GeriDonusumSayisi = geriDonusumSayisi;
+            return View("GelenMesajlar", deger);
+        }
+        public ActionResult GidenKutusuMesajAra(string icerik)
+        {
+            var mail = (string)Session["CariMail"];
+            var deger = db.Mesajlars.Where(x=>x.Gonderen == mail && x.Durum==true).Where(x => x.Icerik.Contains(icerik) || x.Gonderen.Contains(icerik) || x.Alici.Contains(icerik) || x.Konu.Contains(icerik) || x.Tarih.ToString().Contains(icerik)).ToList();
+            var gidenSayisi = db.Mesajlars.Where(x => x.Durum == true).Count(x => x.Gonderen == mail).ToString();
+            ViewBag.GidenSayi = gidenSayisi;
+            var gelenSayisi = db.Mesajlars.Where(x => x.Durum == true).Count(x => x.Alici == mail).ToString();
+            ViewBag.GelenSayi = gelenSayisi;
+            var geriDonusumSayisi = db.Mesajlars.Where(x => x.Durum == false).Count().ToString();
+            ViewBag.GeriDonusumSayisi = geriDonusumSayisi;
+            return View("GidenMesajlar", deger);
+        }
+        public ActionResult GeriDonusumKutusuMesajAra(string icerik)
+        {
+            var mail = (string)Session["CariMail"];
+            var deger = db.Mesajlars.Where(x => x.Durum == false && x.Gonderen == mail || x.Alici==mail ).Where(x => x.Icerik.Contains(icerik) || x.Gonderen.Contains(icerik) || x.Alici.Contains(icerik) || x.Konu.Contains(icerik) || x.Tarih.ToString().Contains(icerik)).ToList();
+            var gidenSayisi = db.Mesajlars.Where(x => x.Durum == true).Count(x => x.Gonderen == mail).ToString();
+            ViewBag.GidenSayi = gidenSayisi;
+            var gelenSayisi = db.Mesajlars.Where(x => x.Durum == true).Count(x => x.Alici == mail).ToString();
+            ViewBag.GelenSayi = gelenSayisi;
+            var geriDonusumSayisi = db.Mesajlars.Where(x => x.Durum == false).Count().ToString();
+            ViewBag.GeriDonusumSayisi = geriDonusumSayisi;
+            return View("GeriDonusumKutusu", deger);
+        }
+        public ActionResult MesajSil(int id)
+        {
+            var deger = db.Mesajlars.Find(id);
+            deger.Durum = false;
+            db.SaveChanges();
+            return RedirectToAction("GelenMesajlar");
+        }
+
+
+
     }
 }
