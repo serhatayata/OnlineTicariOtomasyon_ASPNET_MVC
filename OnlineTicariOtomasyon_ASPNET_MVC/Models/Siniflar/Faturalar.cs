@@ -37,7 +37,7 @@ namespace OnlineTicariOtomasyon_ASPNET_MVC.Models.Siniflar
         public string TeslimAlan { get; set; }
         public bool Durum { get; set; }
         public decimal Toplam { get; set; }
-        public ICollection<FaturaKalem> FaturaKalems { get; set; }
+        public virtual ICollection<FaturaKalem> FaturaKalems { get; set; }
 
     }
 }

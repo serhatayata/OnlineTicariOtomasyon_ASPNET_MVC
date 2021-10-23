@@ -18,6 +18,7 @@ namespace OnlineTicariOtomasyon_ASPNET_MVC.Controllers
             return View(degerler); 
         }
         [HttpGet]
+        [Authorize(Roles ="A")]
         public ActionResult DepartmanEkle()
         {
             return View();

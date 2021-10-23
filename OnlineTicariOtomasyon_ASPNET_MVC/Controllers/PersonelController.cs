@@ -19,6 +19,7 @@ namespace OnlineTicariOtomasyon_ASPNET_MVC.Controllers
             return View(degerler);
         }
         [HttpGet]
+        [Authorize(Roles = "A")]
         public ActionResult PersonelEkle()
         {
             List<SelectListItem> deger1 = (from x in db.Departmans.ToList()

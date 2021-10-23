@@ -96,7 +96,40 @@ namespace OnlineTicariOtomasyon_ASPNET_MVC.Controllers
             db.SaveChanges();
             return RedirectToAction("Index","Fatura");
         }
-      
+        public ActionResult Dinamik()
+        {
+            FaturaViewModel cs = new FaturaViewModel();
+            cs.deger1 = db.Faturalars.ToList();
+            cs.deger2 = db.FaturaKalems.ToList();
+            return View(cs);
+        }
+        public ActionResult FaturaKaydet(string FaturaSeriNo,string FaturaSiraNo,DateTime Tarih,string Saat, string VergiDairesi,string TeslimEden,string TeslimAlan,string Toplam,FaturaKalem[] kalemler)
+        {
+            Faturalar f = new Faturalar();
+            f.FaturaSeriNo = FaturaSeriNo;
+            f.FaturaSiraNo = FaturaSiraNo;
+            f.Tarih = Tarih.ToString();
+            f.VergiDairesi = VergiDairesi;
+            f.Saat = Saat;
+            f.TeslimEden = TeslimEden;
+            f.TeslimAlan = TeslimAlan;
+            f.Toplam = decimal.Parse(Toplam);
+            f.Durum = true;
+            foreach (var x in kalemler)
+            {
+                FaturaKalem fk = new FaturaKalem();
+                fk.Aciklama = x.Aciklama;
+                fk.BirimFiyat = x.BirimFiyat;
+                fk.FaturaID = x.FaturaKalemID;
+                fk.Miktar = x.Miktar;
+                fk.Tutar = x.Tutar;
+                fk.Durum = true;
+                db.FaturaKalems.Add(fk);
+            }
+            db.Faturalars.Add(f);
+            db.SaveChanges();
+            return Json("İşlem Başarılı.",JsonRequestBehavior.AllowGet);
+        }
 
 
     }

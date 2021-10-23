@@ -160,6 +160,7 @@
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
     <Compile Include="Migrations\Configuration.cs" />
+    <Compile Include="Models\Siniflar\FaturaViewModel.cs" />
     <Compile Include="Models\Siniflar\Admin.cs" />
     <Compile Include="Models\Siniflar\Cariler.cs" />
     <Compile Include="Models\Siniflar\Chart1.cs" />
@@ -187,6 +188,7 @@
     <Compile Include="Models\Siniflar\Urunler.cs" />
     <Compile Include="Models\Siniflar\Yapilacaklar.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Roles\AdminRoleProvider.cs" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="AdminLTE-3.0.4\dist\css\adminlte.min.css" />
@@ -685,6 +687,7 @@
     <Content Include="Views\Error\Page400.cshtml" />
     <Content Include="Views\Error\Page500.cshtml" />
     <Content Include="Views\Kategori\KategoriUrunListele.cshtml" />
+    <Content Include="Views\Fatura\Dinamik.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

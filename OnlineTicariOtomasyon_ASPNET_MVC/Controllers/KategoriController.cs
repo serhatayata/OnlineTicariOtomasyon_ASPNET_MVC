@@ -20,6 +20,7 @@ namespace OnlineTicariOtomasyon_ASPNET_MVC.Controllers
         }
        
         [HttpGet]
+        [Authorize(Roles = "A")]
         public ActionResult KategoriEkle()
         {
             return View();

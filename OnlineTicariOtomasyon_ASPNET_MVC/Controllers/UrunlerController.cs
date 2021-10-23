@@ -18,6 +18,7 @@ namespace OnlineTicariOtomasyon_ASPNET_MVC.Controllers
             return View(urunler);
         }
         [HttpGet]
+        [Authorize(Roles = "A")]
         public ActionResult UrunEkle()
         {
             List<SelectListItem> deger1 = (from x in db.Kategoris.ToList()
