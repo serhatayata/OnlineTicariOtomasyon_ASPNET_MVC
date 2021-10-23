@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Web;
 using System.Web.Mvc;
+using System.Web.Security;
 using OnlineTicariOtomasyon_ASPNET_MVC.Models.Siniflar;
 
 namespace OnlineTicariOtomasyon_ASPNET_MVC.Controllers
@@ -71,6 +72,12 @@ namespace OnlineTicariOtomasyon_ASPNET_MVC.Controllers
                                }
                                ).ToList();
             return Json(urunListesi,JsonRequestBehavior.AllowGet);
+        }
+        public ActionResult Cikis()
+        {
+            FormsAuthentication.SignOut();
+            Session.Abandon();
+            return RedirectToAction("Index", "Login");
         }
 
     }
